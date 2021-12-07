@@ -1,0 +1,19 @@
+{
+    "emmet.syntaxProfiles": {
+        "javascript": "jsx"
+    },
+    "emmet.triggerExpansionOnTab": true,
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "emmet.optimizeStylesheetParsing": false,
+    "emmet.syntaxProfiles": {
+        "javascript": "jsx"
+    },
+    "emmet.triggerExpansionOnTab": true,
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    }
+
+
+}
