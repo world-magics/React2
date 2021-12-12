@@ -4,7 +4,7 @@ import {data} from '../../../data';
 
 //reducer function
 const reducer=(state,action)=>{
-  console.log(state);
+  // console.log(state);
   if(action.type==='ADD_ITEM'){
     const newPeople=[...state.people,action.payload];
       return {
@@ -17,13 +17,23 @@ const reducer=(state,action)=>{
   if(action.type==='NO_VALUE'){
     return {...state,isModalOpen:true,modalContent:'please enter value'};
   }
+
+  if(action.type==='CLOSE_MODAL'){
+    return{...state,isModalOpen:false,modalContent:'please enter value'};
+  }
+
+  if(action.type==='REMOVE_ITEM'){
+    const newPeople=state.people.filter(
+      (person)=>person.id!==action.payload);
+    return {...state,people:newPeople};
+  }
   // return state;
   throw new Error ('no matching action type');
     // console.log(state,action);
     // return state;
   }
 
-const defaultState={
+const defaultState={  
   people:[],
   isModalOpen:false,
   modalContent:'',
@@ -49,10 +59,12 @@ const [state,dispatch]=useReducer(reducer,defaultState);
         dispatch({type:'NO_VALUE'});
     }
   }
-
+  const closeModal=()=>{
+    dispatch({type:'CLOSE_MODAL'});
+  }
   return (
     <>
-      {state.isModalOpen &&<Modal modalContent={state.modalContent}/>}
+      {state.isModalOpen &&<Modal closeModal={closeModal} modalContent={state.modalContent}/>}
       <form onSubmit={handleSubmit} className="form">
         <div>
           <input 
@@ -64,9 +76,14 @@ const [state,dispatch]=useReducer(reducer,defaultState);
         <button type="submit">Add</button>
       </form>
       {state.people.map((person)=>{
-        return <div key={person.id}>
+        return <div key={person.id} className='item'>
           <h4>{person.id+" "}{person.name}</h4>
-          
+          <button className="btn" onClick={()=>
+          dispatch(
+            {type:'REMOVE_ITEM',payload:person.id}
+          )}>
+            remove
+          </button>
 
 
         </div>
